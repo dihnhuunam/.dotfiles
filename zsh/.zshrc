@@ -7,6 +7,8 @@ ZSH_THEME="robbyrussell"
 # Plugins
 plugins=(
   git
+  zsh-autosuggestions
+  zsh-syntax-highlighting
 )
 
 # Load Oh My Zsh
