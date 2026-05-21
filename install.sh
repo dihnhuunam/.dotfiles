@@ -2,17 +2,43 @@
 
 set -e
 
-echo "Installing Ubuntu packages..."
+# Colors
+GREEN="\033[0;32m"
+BLUE="\033[0;34m"
+YELLOW="\033[1;33m"
+RED="\033[0;31m"
+NC="\033[0m"
+
+info() {
+  echo -e "${BLUE}[INFO]${NC} $1"
+}
+
+success() {
+  echo -e "${GREEN}[OK]${NC} $1"
+}
+
+warn() {
+  echo -e "${YELLOW}[WARN]${NC} $1"
+}
+
+error() {
+  echo -e "${RED}[ERROR]${NC} $1"
+}
+
+info "Installing Ubuntu packages..."
 ./packages/ubuntu.sh
 
-echo "Installing WezTerm..."
+info "Installing Fonts..."
+./packages/font.sh
+
+info "Installing WezTerm..."
 ./packages/wezterm.sh
 
-echo "Setting up Zsh..."
+info "Setting up Zsh..."
 ./packages/zsh.sh
 
-echo "Creating symlinks..."
+info "Creating symlinks..."
 stow zsh
 stow wezterm
 
-echo "Done. Please restart terminal."
+success "Done. Please logout and login again."

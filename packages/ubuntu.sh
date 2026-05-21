@@ -17,6 +17,7 @@ sudo apt install -y \
   ca-certificates \
   gpg \
   stow \
+  fontconfig \
   zsh
 
 echo "Installing C/C++ development tools..."
