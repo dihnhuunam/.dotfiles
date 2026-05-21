@@ -34,6 +34,16 @@ info "Installing Fonts..."
 info "Installing WezTerm..."
 ./packages/wezterm.sh
 
+info "Setting WezTerm as default terminal..."
+
+if command -v gsettings >/dev/null 2>&1 && command -v wezterm >/dev/null 2>&1; then
+  gsettings set org.gnome.desktop.default-applications.terminal exec wezterm
+  gsettings set org.gnome.desktop.default-applications.terminal exec-arg ''
+  success "WezTerm is set as the default terminal."
+else
+  warn "Cannot set default terminal automatically. gsettings or wezterm not found."
+fi
+
 info "Setting up Zsh..."
 ./packages/zsh.sh
 

@@ -25,7 +25,7 @@ config.cursor_blink_rate = 500
 config.window_background_opacity = 0.9
 
 -- Default shell
-config.default_prog = {"wsl.exe"}
+config.default_prog = {"zsh"}
 
 -- and finally, return the configuration to wezterm
 return config
