@@ -49,6 +49,7 @@ sudo apt install -y \
   tree \
   htop \
   neovim \
-  neofetch
+  neofetch \
+  ibus-unikey
 
 echo "Done installing Ubuntu packages."
