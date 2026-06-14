@@ -16,7 +16,6 @@ sudo apt install -y \
   tar \
   ca-certificates \
   gpg \
-  stow \
   fontconfig \
   zsh
 
@@ -41,7 +40,7 @@ sudo apt install -y \
   python3-pip \
   python3-dev
 
-echo "Installing useful CLI tools..."
+echo "Installing useful tools..."
 sudo apt install -y \
   ripgrep \
   fd-find \
@@ -50,6 +49,7 @@ sudo apt install -y \
   htop \
   neovim \
   neofetch \
-  ibus-unikey
+  ibus-unikey \
+  qpdfview
 
 echo "Done installing Ubuntu packages."
