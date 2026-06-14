@@ -20,7 +20,7 @@ sudo apt install -y \
   fontconfig \
   zsh
 
-echo "Installing C/C++ development tools..."
+echo "Installing development tools..."
 sudo apt install -y \
   build-essential \
   cmake \
@@ -34,7 +34,12 @@ sudo apt install -y \
   clang-format \
   clang-tidy \
   lldb \
-  cppcheck
+  cppcheck \
+  libxcb-cursor0 \
+  libxcb-cursor-dev \
+  python3-full \
+  python3-pip \
+  python3-dev
 
 echo "Installing useful CLI tools..."
 sudo apt install -y \

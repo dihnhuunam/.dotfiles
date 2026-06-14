@@ -11,17 +11,6 @@ else
   echo "Oh My Zsh already installed. Skipping."
 fi
 
-echo "Installing Powerlevel10k..."
-
-P10K_DIR="${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k"
-
-if [ ! -d "$P10K_DIR" ]; then
-  mkdir -p "$(dirname "$P10K_DIR")"
-  git clone --depth=1 https://github.com/romkatv/powerlevel10k.git "$P10K_DIR"
-else
-  echo "Powerlevel10k already installed. Skipping."
-fi
-
 echo "Installing Zsh plugins..."
 
 ZSH_CUSTOM_DIR="${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}"

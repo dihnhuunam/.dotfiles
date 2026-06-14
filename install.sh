@@ -25,21 +25,14 @@ error() {
   echo -e "${RED}[ERROR]${NC} $1"
 }
 
-backup_if_exists() {
-  local target="$1"
-
-  if [ -e "$target" ] && [ ! -L "$target" ]; then
-    local backup="${target}.backup.$(date +%Y%m%d_%H%M%S)"
-    warn "Existing $target found. Backing it up to $backup"
-    mv "$target" "$backup"
-  fi
-}
-
 info "Installing Ubuntu packages..."
 ./packages/ubuntu.sh
 
 info "Installing Fonts..."
 ./packages/font.sh
+
+info "Installing Zsh ..."
+./packages/zsh.sh
 
 info "Installing WezTerm..."
 ./packages/wezterm.sh
@@ -54,15 +47,8 @@ else
   warn "Cannot set default terminal automatically. gsettings or wezterm not found."
 fi
 
-info "Setting up Zsh..."
-./packages/zsh.sh
-
-info "Backing up existing config files..."
-backup_if_exists "$HOME/.zshrc"
-backup_if_exists "$HOME/.config/wezterm"
-
-info "Creating symlinks..."
-stow zsh
-stow wezterm
+info "Creating config files..."
+cp -r ./zsh/.zshrc ~/.zshrc
+cp -r ./wezterm/.config/wezterm ~/.config/
 
 success "Done. Please restart the terminal."
