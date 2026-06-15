@@ -19,7 +19,7 @@ sudo apt install -y \
   fontconfig \
   zsh
 
-echo "Installing development tools..."
+echo "Installing development environment..."
 sudo apt install -y \
   build-essential \
   cmake \
@@ -36,6 +36,9 @@ sudo apt install -y \
   cppcheck \
   libxcb-cursor0 \
   libxcb-cursor-dev \
+  libgl1-mesa-dev \
+  libglu1-mesa-dev \
+  mesa-common-dev \
   python3-full \
   python3-pip \
   python3-dev
