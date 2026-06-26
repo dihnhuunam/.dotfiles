@@ -19,6 +19,29 @@ sudo apt install -y \
   fontconfig \
   zsh
 
+echo "Installing GitLab CLI..."
+
+if [ -f /etc/os-release ]; then
+  . /etc/os-release
+
+  if [ "$ID" = "ubuntu" ]; then
+    if dpkg --compare-versions "$VERSION_ID" ge "24.04"; then
+      echo "Ubuntu $VERSION_ID detected: installing glab via apt..."
+      sudo apt install -y glab
+    else
+      echo "Ubuntu $VERSION_ID detected: installing glab via snap..."
+      sudo apt install -y snapd
+      sudo snap install glab
+    fi
+  else
+    echo "Non-Ubuntu distro detected: skip glab auto-install."
+  fi
+else
+  echo "Cannot detect OS version: skip glab auto-install."
+fi
+
+echo "Done installing Ubuntu packages."
+
 echo "Installing development environment..."
 sudo apt install -y \
   build-essential \
@@ -55,4 +78,3 @@ sudo apt install -y \
   ibus-unikey \
   qpdfview
 
-echo "Done installing Ubuntu packages."
