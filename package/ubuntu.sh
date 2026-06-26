@@ -2,10 +2,15 @@
 
 set -e
 
-echo "Updating apt..."
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+ROOT_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
+
+source "$ROOT_DIR/lib/log.sh"
+
+info "Updating apt..."
 sudo apt update
 
-echo "Installing basic tools..."
+info "Installing basic tools..."
 sudo apt install -y \
   git \
   gh \
@@ -17,32 +22,33 @@ sudo apt install -y \
   ca-certificates \
   gpg \
   fontconfig \
+  stow \
   zsh
 
-echo "Installing GitLab CLI..."
+info "Installing GitLab CLI..."
 
 if [ -f /etc/os-release ]; then
   . /etc/os-release
 
   if [ "$ID" = "ubuntu" ]; then
     if dpkg --compare-versions "$VERSION_ID" ge "24.04"; then
-      echo "Ubuntu $VERSION_ID detected: installing glab via apt..."
+      info "Ubuntu $VERSION_ID detected: installing glab via apt..."
       sudo apt install -y glab
     else
-      echo "Ubuntu $VERSION_ID detected: installing glab via snap..."
+      info "Ubuntu $VERSION_ID detected: installing glab via snap..."
       sudo apt install -y snapd
       sudo snap install glab
     fi
   else
-    echo "Non-Ubuntu distro detected: skip glab auto-install."
+    warn "Non-Ubuntu distro detected: skip glab auto-install."
   fi
 else
-  echo "Cannot detect OS version: skip glab auto-install."
+  warn "Cannot detect OS version: skip glab auto-install."
 fi
 
-echo "Done installing Ubuntu packages."
+success "Done installing Ubuntu packages."
 
-echo "Installing development environment..."
+info "Installing development environment..."
 sudo apt install -y \
   build-essential \
   cmake \
@@ -68,7 +74,7 @@ sudo apt install -y \
 
 pip3 install clang-format
 
-echo "Installing useful tools..."
+info "Installing useful tools..."
 sudo apt install -y \
   ripgrep \
   fd-find \
@@ -81,5 +87,3 @@ sudo apt install -y \
   qpdfview \
   cloud-guest-utils\
   gparted
-
-

@@ -2,28 +2,9 @@
 
 set -e
 
-# Colors
-GREEN="\033[0;32m"
-BLUE="\033[0;34m"
-YELLOW="\033[1;33m"
-RED="\033[0;31m"
-NC="\033[0m"
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-info() {
-  echo -e "${BLUE}[INFO]${NC} $1"
-}
-
-success() {
-  echo -e "${GREEN}[OK]${NC} $1"
-}
-
-warn() {
-  echo -e "${YELLOW}[WARN]${NC} $1"
-}
-
-error() {
-  echo -e "${RED}[ERROR]${NC} $1"
-}
+source "$SCRIPT_DIR/lib/log.sh"
 
 run_script() {
   local script_path="$1"
@@ -38,8 +19,19 @@ run_script() {
   fi
 }
 
+stow_package() {
+  local package_name="$1"
+
+  if [[ -d "$SCRIPT_DIR/$package_name" ]]; then
+    stow --dir "$SCRIPT_DIR" --target "$HOME" "$package_name"
+    success "$package_name config linked."
+  else
+    warn "Stow package not found: $SCRIPT_DIR/$package_name"
+  fi
+}
+
 info "Installing Ubuntu packages..."
-run_script "./packages/ubuntu.sh"
+run_script "$SCRIPT_DIR/package/ubuntu.sh"
 
 info "Setting qpdfview as default PDF viewer..."
 
@@ -59,13 +51,13 @@ else
 fi
 
 info "Installing Fonts..."
-run_script "./packages/font.sh"
+run_script "$SCRIPT_DIR/package/font.sh"
 
 info "Installing Zsh..."
-run_script "./packages/zsh.sh"
+run_script "$SCRIPT_DIR/package/zsh.sh"
 
 info "Installing WezTerm..."
-run_script "./packages/wezterm.sh"
+run_script "$SCRIPT_DIR/package/wezterm.sh"
 
 info "Setting WezTerm as default terminal..."
 
@@ -81,22 +73,10 @@ else
   warn "Cannot set default terminal automatically. gsettings or wezterm not found."
 fi
 
-info "Creating config files..."
+info "Linking config files with stow..."
 
 mkdir -p "$HOME/.config"
-
-if [[ -f "./zsh/.zshrc" ]]; then
-  cp "./zsh/.zshrc" "$HOME/.zshrc"
-  success "Zsh config copied."
-else
-  warn "Zsh config not found: ./zsh/.zshrc"
-fi
-
-if [[ -d "./wezterm/.config/wezterm" ]]; then
-  cp -r "./wezterm/.config/wezterm" "$HOME/.config/"
-  success "WezTerm config copied."
-else
-  warn "WezTerm config directory not found: ./wezterm/.config/wezterm"
-fi
+stow_package "zsh"
+stow_package "wezterm"
 
 success "Done. Please restart the terminal."
