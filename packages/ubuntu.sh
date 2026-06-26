@@ -76,5 +76,7 @@ sudo apt install -y \
   neovim \
   neofetch \
   ibus-unikey \
-  qpdfview
+  qpdfview \
+  cloud-guest-utils\
+  gparted
 
