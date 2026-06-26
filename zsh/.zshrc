@@ -1,5 +1,6 @@
 # Path to Oh My Zsh
 export ZSH="$HOME/.oh-my-zsh"
+export PATH="$HOME/.local/bin:$PATH"
 
 # Theme
 ZSH_THEME="robbyrussell"

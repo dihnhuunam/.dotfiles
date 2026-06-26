@@ -66,6 +66,8 @@ sudo apt install -y \
   python3-pip \
   python3-dev
 
+pip3 install clang-format
+
 echo "Installing useful tools..."
 sudo apt install -y \
   ripgrep \
@@ -79,4 +81,5 @@ sudo apt install -y \
   qpdfview \
   cloud-guest-utils\
   gparted
+
 
