@@ -19,6 +19,7 @@ install_glab() {
     return
   fi
 
+  # shellcheck disable=SC1091
   . /etc/os-release
 
   if [[ "${ID:-}" != "ubuntu" ]]; then
@@ -36,6 +37,15 @@ install_glab() {
   fi
 }
 
+install_python_tools() {
+  info "Installing Python tools via pip..."
+
+  python3 -m pip install --user --upgrade pip
+  python3 -m pip install --user cmake-format
+
+  success "Python tools installed."
+}
+
 basic_packages=(
   git
   gh
@@ -51,7 +61,7 @@ basic_packages=(
   zsh
 )
 
-dev_packages=(
+cpp_packages=(
   build-essential
   cmake
   ninja-build
@@ -65,14 +75,29 @@ dev_packages=(
   clang-tidy
   lldb
   cppcheck
-  libxcb-cursor0
-  libxcb-cursor-dev
-  libgl1-mesa-dev
-  libglu1-mesa-dev
-  mesa-common-dev
+)
+
+python_packages=(
+  python3
   python3-full
   python3-pip
   python3-dev
+  python3-venv
+)
+
+qt_runtime_packages=(
+  libxcb-cursor0
+  libxcb-cursor-dev
+)
+
+opengl_packages=(
+  libgl1-mesa-dev
+  libglu1-mesa-dev
+  mesa-common-dev
+  mesa-utils
+  freeglut3-dev
+  libglfw3-dev
+  libglew-dev
 )
 
 useful_packages=(
@@ -98,12 +123,25 @@ apt_install "${basic_packages[@]}"
 install_glab
 success "Basic tools installed."
 
+info "Installing C/C++ development packages..."
+apt_install "${cpp_packages[@]}"
+success "C/C++ development packages installed."
 
-info "Installing development environment..."
-apt_install "${dev_packages[@]}"
-pip3 install cmake-format
-success "Development environment packages installed."
+info "Installing Python development packages..."
+apt_install "${python_packages[@]}"
+install_python_tools
+success "Python development packages installed."
+
+info "Installing Qt runtime/helper packages..."
+apt_install "${qt_runtime_packages[@]}"
+success "Qt runtime/helper packages installed."
+
+info "Installing OpenGL/GLU/GLUT/GLFW/GLEW packages..."
+apt_install "${opengl_packages[@]}"
+success "OpenGL/GLU/GLUT/GLFW/GLEW packages installed."
 
 info "Installing useful tools..."
 apt_install "${useful_packages[@]}"
 success "Useful tools installed."
+
+success "All packages installed successfully."
