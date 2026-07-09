@@ -100,6 +100,10 @@ opengl_packages=(
   libglew-dev
 )
 
+boost_packages=(
+  libboost-all-dev
+)
+
 useful_packages=(
   ripgrep
   fd-find
@@ -139,6 +143,10 @@ success "Qt runtime/helper packages installed."
 info "Installing OpenGL/GLU/GLUT/GLFW/GLEW packages..."
 apt_install "${opengl_packages[@]}"
 success "OpenGL/GLU/GLUT/GLFW/GLEW packages installed."
+
+info "Installing Boost library packages..."
+apt_install "${boost_packages[@]}"
+success "Boost library packages installed."
 
 info "Installing useful tools..."
 apt_install "${useful_packages[@]}"
