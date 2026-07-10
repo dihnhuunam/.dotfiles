@@ -98,6 +98,7 @@ opengl_packages=(
   freeglut3-dev
   libglfw3-dev
   libglew-dev
+  libftgl-dev
 )
 
 boost_packages=(
