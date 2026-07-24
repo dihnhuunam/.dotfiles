@@ -22,6 +22,7 @@ plugins=(
 source "$ZSH/oh-my-zsh.sh"
 
 # Aliases
+alias home="cd ~"
 alias work="cd ~/Workspace"
 alias ll="ls -lah"
 alias cls="clear"
