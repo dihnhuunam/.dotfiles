@@ -23,8 +23,12 @@ stow_package() {
   local package_name="$1"
 
   if [[ -d "$SCRIPT_DIR/$package_name" ]]; then
-    stow --dir "$SCRIPT_DIR" --target "$HOME" "$package_name"
-    success "$package_name config linked."
+    if stow --dir "$SCRIPT_DIR" --target "$HOME" "$package_name"; then
+      success "$package_name config linked."
+    else
+      error "Failed to link $package_name config."
+      return 1
+    fi
   else
     warn "Stow package not found: $SCRIPT_DIR/$package_name"
   fi
@@ -76,6 +80,8 @@ fi
 info "Linking config files with stow..."
 
 mkdir -p "$HOME/.config"
+info "Removing existing .zshrc..."
+rm -f "$HOME/.zshrc"
 stow_package "zsh"
 stow_package "wezterm"
 

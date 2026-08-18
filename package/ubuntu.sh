@@ -117,6 +117,8 @@ useful_packages=(
   qpdfview
   cloud-guest-utils
   gparted
+  open-vm-tools
+  open-vm-tools-desktop
 )
 
 info "Updating apt..."
