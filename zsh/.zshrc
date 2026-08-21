@@ -7,7 +7,6 @@ export PATH="$PATH:/opt/nvim-linux-x86_64/bin"
 export QT_ROOT="$HOME/Qt/6.9.3/gcc_64"
 export PATH="$QT_ROOT/bin:$PATH"
 export CMAKE_PREFIX_PATH="$QT_ROOT${CMAKE_PREFIX_PATH:+:$CMAKE_PREFIX_PATH}"
-export LD_LIBRARY_PATH="$QT_ROOT/lib${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}"
 
 # Theme
 ZSH_THEME="robbyrussell"

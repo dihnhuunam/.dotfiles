@@ -38,10 +38,14 @@ install_glab() {
 }
 
 install_python_tools() {
-  info "Installing Python tools via pip..."
+  info "Installing Python tools via pipx..."
 
-  python3 -m pip install --user --upgrade pip
-  python3 -m pip install --user cmake-format
+  if ! command -v pipx >/dev/null 2>&1; then
+    # apt_install pipx
+    python3 -m pipx ensurepath
+  fi
+
+  pipx install cmakelang
 
   success "Python tools installed."
 }
@@ -83,6 +87,7 @@ python_packages=(
   python3-pip
   python3-dev
   python3-venv
+  pipx
 )
 
 qt_runtime_packages=(
