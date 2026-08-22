@@ -117,13 +117,14 @@ useful_packages=(
   tree
   htop
   neovim
-  neofetch
+  fastfetch
   ibus-unikey
   qpdfview
   cloud-guest-utils
   gparted
   open-vm-tools
   open-vm-tools-desktop
+  openssh-server
 )
 
 info "Updating apt..."
