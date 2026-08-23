@@ -37,17 +37,7 @@ stow_package() {
 info "Installing Ubuntu packages..."
 run_script "$SCRIPT_DIR/package/ubuntu.sh"
 
-info "Setting qpdfview as default PDF viewer..."
-
-if command -v qpdfview >/dev/null 2>&1; then
-  xdg-mime default qpdfview.desktop application/pdf
-  success "qpdfview is set as the default PDF viewer."
-else
-  warn "qpdfview not found. Skipping default PDF viewer setup."
-fi
-
 info "Restarting IBus..."
-
 if command -v ibus >/dev/null 2>&1; then
   ibus restart || warn "IBus restart failed. You may need to log out and log in again."
 else
@@ -78,7 +68,6 @@ else
 fi
 
 info "Linking config files with stow..."
-
 mkdir -p "$HOME/.config"
 info "Removing existing .zshrc..."
 rm -f "$HOME/.zshrc"

@@ -119,7 +119,6 @@ useful_packages=(
   neovim
   fastfetch
   ibus-unikey
-  qpdfview
   cloud-guest-utils
   gparted
   open-vm-tools
